@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Events in Sydney</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+</head>
+<body class="bg-gray-100 p-6">
+
+    <h1 class="text-4xl font-bold text-center mb-4">Events in Sydney</h1>
+    <p class="text-center text-gray-600 mb-8">Discover the latest events happening around you</p>
+
+    <div id="eventsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+    <script>
+        fetch('http://127.0.0.1:5000/events')
+        .then(response => response.json())
+        .then(data => {
+            const container = document.getElementById('eventsContainer');
+            data.forEach(event => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-lg shadow";
+
+                const title = document.createElement('h2');
+                title.className = "text-xl font-semibold mb-4";
+                title.textContent = event.title;
+
+                const button = document.createElement('button');
+                button.className = "bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600";
+                button.textContent = "GET TICKETS";
+                button.onclick = () => {
+                    const email = prompt("Enter your email to continue:");
+                    if (email) {
+                        window.open(event.link, '_blank');
+                    }
+                };
+
+                card.appendChild(title);
+                card.appendChild(button);
+                container.appendChild(card);
+            });
+        });
+    </script>
+
+</body>
+</html>
