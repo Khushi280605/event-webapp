@@ -3,7 +3,7 @@ services:
     name: event-webapp
     env: python
     buildCommand: ""
-    startCommand: "python backend/app.py"
+    startCommand: "python app.py"
     envVars:
       - key: FLASK_ENV
         value: production
